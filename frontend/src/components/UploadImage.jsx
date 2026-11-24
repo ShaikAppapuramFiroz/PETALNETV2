@@ -1,7 +1,7 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
 
-function UploadImage({ onFileChange, onUrlChange, preview, uploadProgress, isLoading }) {
+function UploadImage({ onFileChange, onUrlChange, preview, uploadProgress, isLoading, hint }) {
   const [showUrlInput, setShowUrlInput] = useState(false);
   const [imageUrl, setImageUrl] = useState("");
 
@@ -27,6 +27,11 @@ function UploadImage({ onFileChange, onUrlChange, preview, uploadProgress, isLoa
 
   return (
     <div className="upload-card">
+      {hint && (
+        <div className="hint-banner" role="note">
+          <strong>Note:</strong> Upload flower images only in these classes — Daisy, Dandelion, Roses, Sunflowers, Tulips.
+        </div>
+      )}
       <div className="upload-options">
         <label className="upload-label">
         <input
@@ -91,6 +96,7 @@ UploadImage.propTypes = {
   preview: PropTypes.string,
   uploadProgress: PropTypes.number,
   isLoading: PropTypes.bool,
+  hint: PropTypes.string,
 };
 
 UploadImage.defaultProps = {
@@ -98,6 +104,7 @@ UploadImage.defaultProps = {
   preview: "",
   uploadProgress: 0,
   isLoading: false,
+  hint: "",
 };
 
 export default UploadImage;

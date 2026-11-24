@@ -1,23 +1,35 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Navbar from "./components/Navbar";
 import UploadImage from "./components/UploadImage";
 import PredictionResult from "./components/PredictionResult";
 import Footer from "./components/Footer";
 import { classifyFlower } from "./services/api";
 import { ToastContainer, toast } from "react-toastify";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "./firebase";
+import AuthModal from "./components/AuthModal";
 
 function App() {
   const [selectedFile, setSelectedFile] = useState(null);
   const [imageUrl, setImageUrl] = useState("");
   const [preview, setPreview] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
   const [uploadProgress, setUploadProgress] = useState(0);
+  const [isLoading, setIsLoading] = useState(false);
   const [result, setResult] = useState(null);
+  const [user, setUser] = useState(null);
+  const [forceAuthModal, setForceAuthModal] = useState(false);
+
+  useEffect(() => {
+    const unsub = onAuthStateChanged(auth, (u) => {
+      setUser(u);
+      setForceAuthModal(!u);
+    });
+    return () => unsub();
+  }, []);
 
   const handleFileChange = (file) => {
     if (!file) {
       setSelectedFile(null);
-      setImageUrl("");
       setPreview("");
       return;
     }
@@ -94,8 +106,10 @@ function App() {
     }
   };
 
+  const locked = !user;
+
   return (
-    <div className="app-shell">
+    <div className={`app-shell${locked ? " locked" : ""}`}>
       <Navbar />
       <main className="content">
         <section className="hero">
@@ -116,6 +130,7 @@ function App() {
               preview={preview}
               uploadProgress={uploadProgress}
               isLoading={isLoading}
+              hint={user ? "Please upload flower images from Daisy, Dandelion, Roses, Sunflowers, or Tulips." : ""}
             />
             <button
               className="primary-btn"
@@ -135,6 +150,7 @@ function App() {
       </main>
       <Footer />
       <ToastContainer position="top-right" theme="colored" />
+      {forceAuthModal && <AuthModal onClose={() => {}} canClose={false} />}
     </div>
   );
 }

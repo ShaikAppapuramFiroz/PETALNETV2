@@ -1,0 +1,16 @@
+# Node and build artifacts
+frontend/node_modules
+frontend/dist
+
+# Python virtual environments and caches
+backend/.venv
+**/__pycache__/
+
+# IDE settings
+.vscode
+
+# Local-only files
+docker-compose.yml
+frontend/Dockerfile
+backend/Dockerfile
+Flower_Detection_CNN.ipynb

@@ -107,7 +107,7 @@ function PredictionResult({ result }) {
           </div>
           <div className="stat-item">
             <span className="stat-label">Model Accuracy</span>
-            <span className="stat-value">95-98%+</span>
+            <span className="stat-value">94%+</span>
           </div>
         </div>
       </div>

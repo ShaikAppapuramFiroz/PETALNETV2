@@ -21,25 +21,46 @@ npm run dev
 backend/
   main.py
   requirements.txt
+  evaluate_model.py
+  quick_train.py
+  train_and_export.py
   model/
-    model.h5           # or SavedModel folder (provide your trained weights)
+    .gitkeep
+    confusion_matrix.png
+    evaluation_results.json
+    model.h5
+    model.keras
+    model_finetuned.keras
 frontend/
+  .env.local
   index.html
   package.json
+  package-lock.json
   vite.config.js
   src/
     App.jsx
     main.jsx
     styles.css
+    firebase.js
     components/
-      UploadImage.jsx
-      PredictionResult.jsx
-      Navbar.jsx
+      AuthModal.jsx
       Footer.jsx
+      Navbar.jsx
+      PredictionResult.jsx
+      TeamAssociates.jsx
+      UploadImage.jsx
     services/
       api.js
-tf_flowers/            # dataset you already have (not needed for inference)
+  dist/
+    index.html
+    assets/
+      index-DajEiH-t.css
+      index-k1WmzFWN.js
+.vscode/
+  settings.json
 Flower_Detection_CNN.ipynb
+.gitattributes
+README.md
 ```
 
 ## Quick Start - Run the Project
